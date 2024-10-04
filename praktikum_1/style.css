@@ -1,0 +1,28 @@
+body{
+    background-color: #034747;
+    font-size: 14px;
+    line-height: 22px;
+    color: burlywood;
+}
+.image{
+    height: 170px;
+    width: 170px;
+    object-fit: cover;
+    border-radius: 80px;
+} 
+.a{
+    height: 200px;
+    width: 250px;
+    object-fit: cover;
+    border-radius: 50px;
+}
+.b{
+    height: 200px;
+    width: 250px;
+    object-fit: cover;
+    border-radius: 50px;
+}
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+p{
+    font-family: "Dancing Script", cursive;
+}

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Praktikum_3</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="sidebar">
+        <h1>Ubah Tampilan Halaman</h1>
+
+        <!-- Pilihan Warna Latar Belakang -->
+        <label for="background-color">Pilih Warna Latar Belakang:</label>
+        <select id="background-color">
+            <option value="white">Putih</option>
+            <option value="lightgray">Abu-abu Terang</option>
+            <option value="lightblue">Biru Terang</option>
+            <option value="lightgreen">Hijau Terang</option>
+        </select>
+
+        <!-- Pengaturan Ukuran Font -->
+        <div><br>
+            <label for="font-size">Ubah Ukuran Font:</label>
+            <input type="range" id="font-size" min="10" max="50" value="16">
+        </div>
+
+        <!-- Tombol Mode Gelap -->
+        <div>
+            <button id="toggle-dark-mode">Mode Gelap</button>
+        </div><br>
+
+        <!-- Bonus: Pilihan Gaya Font -->
+        <div>
+            <label for="font-style">Pilih Gaya Font:</label>
+            <select id="font-style">
+                <option value="sans-serif">Sans-Serif</option>
+                <option value="serif">Serif</option>
+            </select>
+        </div>
+
+        <!-- Input untuk Menambahkan Tugas -->
+        <input type="text" id="new-task" placeholder="Tambahkan tugas baru">
+        <button id="add-task">Tambah</button>
+         <!-- Daftar Tugas -->
+     <ul id="task-list"></id=>
+    </div>
+
+    <div id="content">
+        <!-- Konten utama halaman akan ditampilkan di sini -->
+         <h3>ADELIA RAHMA SAPUTRI</h3>
+        <p>Halo saya adalah mahasiswa sistem informasi Universitas Ahmad Dahlan</p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

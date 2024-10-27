@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>To-Do App</title>
+    <style>
+        h2{
+            color: rgb(241, 139, 55);
+        }
+        body {
+            font-family: sans-serif;
+            background-color: beige;
+        }
+
+        .container {
+            width: 350px;
+            margin: 0 auto;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+        }
+
+        #taskList {
+            list-style: none;
+            padding: 0;
+        }
+
+        #taskList li {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .close {
+            color: red;
+            float: right;
+            cursor: pointer;
+        }
+
+        /* Dark Mode */
+        .dark-mode {
+            background-color: #333;
+            color: #f9f9f9;
+        }
+    </style>
+</head>
+
+<body>
+    <center>
+        <div class="container">
+            <h2>My To-Do List</h2>
+            <input type="text" id="newTask" placeholder="Add a new task...">
+            <button onclick="addTask()">Add</button>
+    
+            <ul id="taskList">
+            </ul>
+        </div>
+        <div>
+            <H2>Change Apprearance</H2>
+            <select id="bgColor" onchange="changeBackgroundColor()">
+                <option value="">Select Background Color</option>
+                <option value="lightyellow">Light Yellow</option>
+                <option value="lightblue">Light Blue</option>
+                <option value="lightgreen">Light Green</option>
+            </select>
+            
+            <p>
+                <button onclick="increaseFontSize()">Increase Font Size</button>
+                <button onclick="decreaseFontSize()">Decrease Font Size</button></p>
+           <p>
+            <button onclick="toggleDarkMode()">Toggle Dark Mode</button>
+            <button onclick="changeFontStyle()">Change Font Style</button>
+           </p> 
+        </div>
+    </center>
+
+    <script>
+       function changeBackgroundColor() {
+            const color = document.getElementById("bgColor").value;
+            document.body.style.backgroundColor = color;
+        }
+
+        let fontSize = 16;
+        function increaseFontSize() {
+            fontSize += 2;
+            document.body.style.fontSize = fontSize + "px";
+        }
+
+        function decreaseFontSize() {
+            if (fontSize > 12) fontSize -= 2;
+            document.body.style.fontSize = fontSize + "px";
+        }
+
+        function toggleDarkMode() {
+            document.body.classList.toggle("dark-mode");
+        }
+
+        function changeFontStyle() {
+            document.body.style.fontFamily = document.body.style.fontFamily === "serif" ? "sans-serif" : "serif";
+        }
+
+
+        // To-Do List Functions
+        document.addEventListener("DOMContentLoaded", loadTasks);
+
+        function addTask() {
+            const taskInput = document.getElementById("newTask");
+            const taskText = taskInput.value.trim();
+
+            if (taskText === "") {
+                alert("Please enter a task.");
+                return;
+            }
+
+            const taskList = document.getElementById("taskList");
+            const taskItem = createTaskElement(taskText);
+
+            taskList.appendChild(taskItem);
+            saveTasks();
+            taskInput.value = "";
+        }
+
+        function createTaskElement(taskText) {
+            const taskItem = document.createElement("li");
+            taskItem.innerHTML = `
+                <span class="taskText" ondblclick="editTask(this)" onclick="toggleComplete(this)">${taskText}</span>
+                <span class="close" onclick="deleteTask(this)">X</span>
+            `;
+            return taskItem;
+        }
+
+        function deleteTask(element) {
+            const taskItem = element.parentElement;
+            taskItem.remove();
+            saveTasks();
+        }
+
+        function editTask(element) {
+            const newTaskText = prompt("Edit your task:", element.innerText);
+            if (newTaskText !== null && newTaskText.trim() !== "") {
+                element.innerText = newTaskText.trim();
+                saveTasks();
+            }
+        }
+
+        function toggleComplete(element) {
+            element.classList.toggle("completed");
+            saveTasks();
+        }
+
+        function saveTasks() {
+            const tasks = [];
+            document.querySelectorAll("#taskList li").forEach((taskItem) => {
+                const taskText = taskItem.querySelector(".taskText").innerText;
+                const isCompleted = taskItem.querySelector(".taskText").classList.contains("completed");
+                tasks.push({ text: taskText, completed: isCompleted });
+            });
+            localStorage.setItem("tasks", JSON.stringify(tasks));
+        }
+
+        function loadTasks() {
+            const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+            tasks.forEach((task) => {
+                const taskItem = createTaskElement(task.text);
+                if (task.completed) {
+                    taskItem.querySelector(".taskText").classList.add("completed");
+                }
+                document.getElementById("taskList").appendChild(taskItem);
+            });
+        }
+    </script>
+
+</body>
+
+</html>
